@@ -28,11 +28,10 @@ const data = [
   { month: "Dec", feesCollected: 200, expenses: 140, surplus: 60 },
 ];
 
-// Custom tooltip component
 const CustomTooltip = ({ active, payload, label }) => {
   if (active && payload && payload.length) {
     return (
-      <div className="bg-white p-2 border border-gray-300 rounded shadow-md text-sm text-gray-700">
+      <div className="bg-white p-2 border border-gray-300 rounded shadow-md text-xs sm:text-sm text-gray-700 max-w-[200px]">
         <p className="font-semibold mb-1">Month: {label}</p>
         {payload.map((entry) => (
           <p key={entry.dataKey} className="mb-0">
@@ -51,17 +50,19 @@ const CustomTooltip = ({ active, payload, label }) => {
 
 const Finance = () => {
   return (
-    <div className="bg-white rounded-2xl w-full h-full p-6 shadow-lg border flex flex-col">
-      <div className="flex justify-between items-center mb-6">
-        <h1 className="text-xl font-bold text-gray-800">💰 Finance</h1>
+    <div className="bg-white rounded-2xl w-full min-h-[400px] sm:h-[420px] p-4 sm:p-6 shadow-lg border flex flex-col">
+      {/* Header */}
+      <div className="flex justify-between items-center mb-4 sm:mb-6">
+        <h1 className="text-lg sm:text-xl font-bold text-gray-800">💰 Finance</h1>
         <Image src="/moreDark.png" alt="more options" width={20} height={20} />
       </div>
 
-      <div className="flex-grow">
+      {/* Chart */}
+      <div className="flex-1 min-h-[300px]">
         <ResponsiveContainer width="100%" height="100%">
           <ComposedChart
             data={data}
-            margin={{ top: 10, right: 30, left: 0, bottom: 0 }}
+            margin={{ top: 10, right: 20, left: -10, bottom: 0 }}
           >
             <defs>
               <linearGradient id="colorFees" x1="0" y1="0" x2="0" y2="1">
@@ -75,9 +76,12 @@ const Finance = () => {
             </defs>
 
             <CartesianGrid strokeDasharray="3 3" stroke="#E5E7EB" />
-            <XAxis dataKey="month" tick={{ fill: "#6b7280", fontWeight: 600 }} />
+            <XAxis
+              dataKey="month"
+              tick={{ fill: "#6b7280", fontSize: 12, fontWeight: 600 }}
+            />
             <YAxis
-              tick={{ fill: "#6b7280", fontWeight: 600 }}
+              tick={{ fill: "#6b7280", fontSize: 12, fontWeight: 600 }}
               tickFormatter={(value) => `${value}k`}
             />
             <Tooltip content={<CustomTooltip />} />
@@ -91,20 +95,20 @@ const Finance = () => {
               dataKey="feesCollected"
               fill="url(#colorFees)"
               name="Fees Collected"
-              barSize={20}
+              barSize={16}
               radius={[4, 4, 0, 0]}
             />
             <Bar
               dataKey="expenses"
               fill="url(#colorExpenses)"
               name="Expenses"
-              barSize={20}
+              barSize={16}
               radius={[4, 4, 0, 0]}
             />
             <Line
               type="monotone"
               dataKey="surplus"
-              stroke="#1E40AF" // deeper blue for surplus line
+              stroke="#1E40AF"
               strokeWidth={3}
               name="Surplus"
               dot={{ r: 4 }}

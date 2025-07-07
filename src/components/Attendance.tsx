@@ -10,8 +10,9 @@ import {
   ResponsiveContainer,
 } from "recharts";
 import Image from "next/image";
+import { useState, useEffect } from "react";
 
-const data = [
+const initialData = [
   { name: "Mon", present: 90, absent: 10 },
   { name: "Tue", present: 80, absent: 20 },
   { name: "Wed", present: 95, absent: 5 },
@@ -22,8 +23,20 @@ const data = [
 ];
 
 const Attendance = () => {
+  // If you want dynamic data refresh, use state here:
+  const [data, setData] = useState(initialData);
+
+  // Example: You could update data dynamically here if needed (optional)
+  // useEffect(() => {
+  //   const interval = setInterval(() => {
+  //     // Update data logic
+  //     setData((prev) => [...prev]); // dummy update, replace with real logic
+  //   }, 10000);
+  //   return () => clearInterval(interval);
+  // }, []);
+
   return (
-    <div className="bg-white rounded-2xl shadow-md p-6 w-full h-[420px]">
+    <div className="bg-white rounded-2xl shadow-md p-6 w-full h-full">
       {/* Header */}
       <div className="flex justify-between items-center mb-6">
         <h1 className="text-xl font-bold text-gray-800">📊 Attendance</h1>
