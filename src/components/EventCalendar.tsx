@@ -1,97 +1,59 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import Image from "next/image";
+import { useState } from "react";
 import Calendar from "react-calendar";
 import "react-calendar/dist/Calendar.css";
 
 type ValuePiece = Date | null;
+
 type Value = ValuePiece | [ValuePiece, ValuePiece];
+
+// TEMPORARY
+const events = [
+  {
+    id: 1,
+    title: "Lorem ipsum dolor",
+    time: "12:00 PM - 2:00 PM",
+    description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+  },
+  {
+    id: 2,
+    title: "Lorem ipsum dolor",
+    time: "12:00 PM - 2:00 PM",
+    description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+  },
+  {
+    id: 3,
+    title: "Lorem ipsum dolor",
+    time: "12:00 PM - 2:00 PM",
+    description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+  },
+];
 
 const EventCalendar = () => {
   const [value, onChange] = useState<Value>(new Date());
 
-  const formatSelectedDate = () => {
-    if (value instanceof Date) return value.toDateString();
-    if (Array.isArray(value)) {
-      const [start, end] = value;
-      if (start && end) return `${start.toDateString()} → ${end.toDateString()}`;
-      if (start) return start.toDateString();
-    }
-    return "No date selected";
-  };
-
-  useEffect(() => {
-    console.log("📘 School EventCalendar mounted");
-  }, []);
-
-  const events = [
-    {
-      time: "9:00 AM",
-      title: "Math Exam",
-      description: "Grade 10 - Algebra and Geometry exam in Room 205.",
-    },
-    {
-      time: "11:00 AM",
-      title: "Parent-Teacher Meeting",
-      description: "Scheduled meetings with parents in Auditorium.",
-    },
-    {
-      time: "1:00 PM",
-      title: "Science Project Deadline",
-      description: "Submission of final project reports.",
-    },
-  ];
-
   return (
-    <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-2">
-      <div className="bg-white border rounded-xl shadow-md p-3 sm:p-4 md:p-4 w-full max-w-full sm:max-w-md lg:max-w-2xl mx-auto">
-        <h1 className="text-base sm:text-lg md:text-xl font-bold text-gray-800 mb-2">
-          📅 School Calendar
-        </h1>
-        <p className="text-xs sm:text-sm text-gray-600 mb-2">
-          Select a date or range:
-        </p>
-
-        <div className="rounded-md border border-gray-300 p-1 sm:p-1.5 mb-2">
-          <Calendar
-            onChange={onChange}
-            value={value}
-            selectRange={true}
-            className="w-full"
-          />
-        </div>
-
-        <p className="mt-1 text-xs sm:text-sm text-gray-600">
-          Selected:{" "}
-          <span className="font-semibold text-gray-800">
-            {formatSelectedDate()}
-          </span>
-        </p>
-
-        <div className="mt-3">
-          <h2 className="text-sm sm:text-base font-semibold text-gray-800 mb-2">
-            📌 Today's Schedule
-          </h2>
-          <ul className="space-y-1.5">
-            {events.map((event, index) => (
-              <li
-                key={index}
-                className="bg-gray-50 border border-gray-200 rounded-md p-2 shadow-sm"
-              >
-                <div className="flex justify-between items-center mb-1">
-                  <span className="text-xs font-medium text-blue-600">
-                    {event.time}
-                  </span>
-                  <span className="text-xs text-gray-400">🕒</span>
-                </div>
-                <h3 className="text-sm font-semibold text-gray-800">
-                  {event.title}
-                </h3>
-                <p className="text-xs text-gray-600">{event.description}</p>
-              </li>
-            ))}
-          </ul>
-        </div>
+    <div className="bg-white p-4 rounded-md">
+      <Calendar onChange={onChange} value={value} />
+      <div className="flex items-center justify-between">
+        <h1 className="text-xl font-semibold my-4">Events</h1>
+        <Image src="/moreDark.png" alt="" width={20} height={20} />
+      </div>
+      <div className="flex flex-col gap-4">
+        {events.map((event) => (
+          <div
+            className="p-5 rounded-md border-2 border-gray-100 border-t-4 odd:border-t-lamaSky even:border-t-lamaPurple"
+            key={event.id}
+          >
+            <div className="flex items-center justify-between">
+              <h1 className="font-semibold text-gray-600">{event.title}</h1>
+              <span className="text-gray-300 text-xs">{event.time}</span>
+            </div>
+            <p className="mt-2 text-gray-400 text-sm">{event.description}</p>
+          </div>
+        ))}
       </div>
     </div>
   );

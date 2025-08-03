@@ -1,23 +1,16 @@
-import Image from 'next/image';
-import React from 'react';
+import Image from "next/image";
 
 const UserCard = ({ type }: { type: string }) => {
   return (
-    <div className="rounded-2xl odd:bg-lamaPurple even:bg-lamaYellow p-5 flex-1 min-w-[150px] max-w-sm text-black transition-all hover:shadow-lg hover:scale-[1.02] duration-200 shadow-md">
-      
-      {/* Header */}
-      <div className="flex justify-between items-center mb-4">
-        <span className="text-[10px] font-semibold bg-white text-green-600 px-2 py-[2px] rounded-full shadow-sm">
+    <div className="rounded-2xl odd:bg-lamaPurple even:bg-lamaYellow p-4 flex-1 min-w-[130px]">
+      <div className="flex justify-between items-center">
+        <span className="text-[10px] bg-white px-2 py-1 rounded-full text-green-600">
           2024/25
         </span>
-        <Image src="/more.png" alt="More" width={20} height={20} />
+        <Image src="/more.png" alt="" width={20} height={20} />
       </div>
-
-      {/* Main Number */}
-      <h1 className="text-3xl font-bold mb-2 tracking-tight">1,234</h1>
-
-      {/* Type */}
-      <h2 className="capitalize text-sm font-medium opacity-90">{type}</h2>
+      <h1 className="text-2xl font-semibold my-4">1,234</h1>
+      <h2 className="capitalize text-sm font-medium text-gray-500">{type}s</h2>
     </div>
   );
 };
